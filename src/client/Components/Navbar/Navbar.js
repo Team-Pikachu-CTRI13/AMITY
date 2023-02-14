@@ -22,6 +22,7 @@ const Navbar = ({ leftItems }) => {
       withCredentials: true,
       url: 'http://localhost:8080/auth/user',
     }).then((res) => {
+      console.log(res);
       if (res.data) {
         if (res.data) {
           console.log(res.data);
