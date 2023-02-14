@@ -4,7 +4,7 @@ const userControllers = {};
 
 userControllers.connectPartner = (req, res, next) => {
   console.log(req.body.partnerEmail);
-//   db.getUserByEmail(req.body.partnerEmail)
+  db.getUserByEmail(req.body.partnerEmail)
   next()
 }
 

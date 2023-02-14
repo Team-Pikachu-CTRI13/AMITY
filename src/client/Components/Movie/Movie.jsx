@@ -20,7 +20,11 @@ const Movie = () => {
     <div className='movie'>
       {/* index: {index} */}
       {/* {movies.length > 0 && <div>{movies[index].title}</div>} */}
-      {movies.length > 0 && <img className='poster' src={`https://image.tmdb.org/t/p/w1280/${movies[index].poster_path}`}/>}
+      {movies.length > 0 && (
+        <div className='wrapper'>
+          <img className='poster' src={`https://image.tmdb.org/t/p/w1280/${movies[index].poster_path}`} />
+        </div>
+      )}
       {/* {movies} */}
       <button onClick={() => setIndex((index + 1) % 20)}>next</button>
       <button onClick={() => setIndex((index + 19) % 20)}>back</button>
