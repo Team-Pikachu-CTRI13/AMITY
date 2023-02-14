@@ -29,7 +29,6 @@ body {
 }
 
 .main {
-  border: 3px solid orange;
   height: 100%;
   display: flex;
   flex-direction: column;
