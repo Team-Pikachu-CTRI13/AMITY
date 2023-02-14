@@ -1,4 +1,5 @@
 const express = require('express');
+const movieControllers = require('./controllers/movieControllers.js');
 
 
 const apiRouterCreator = function (db) {
@@ -7,10 +8,16 @@ const apiRouterCreator = function (db) {
   //   const rn = await db.getCards();
   //   res.status(200).send(rn);
   // });
+  
 
-  // router.get('/getMovies', async (req, res) => {
-  //   const rn = 
-  // })
+  //endpoint for fetch the initial 20 movies?
+  router.post('/getMovies', movieControllers.getMovies, (req, res) => {
+    res.status(200).send('test')
+  })
+
+  router.post('/likedMovies', movieControllers.createLikedMovies, (req, res) => {
+    res,status(200).json(res.locals.createdMovie);
+  })
 
 
   return router;

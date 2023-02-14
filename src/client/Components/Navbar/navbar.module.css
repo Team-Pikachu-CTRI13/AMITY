@@ -7,3 +7,7 @@
 .margin {
   padding:10px;
 }
+
+.navbar {
+  border: 3px solid red;
+}

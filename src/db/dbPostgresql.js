@@ -27,19 +27,30 @@ returns output to backend
 */
 const db = { pool }; // pool can be used to forcibly disconnect
 
-db.getTables = async () => {
-  const sql = 'SELECT * FROM information_schema.tables;';
-  const data = await pgQuery(sql);
-  return data.rows;
-};
+  db.createLikedMovies = async (userId, movieId) => {
+    console.log('IM INSIDE?!?!?')
+    //current left off here changed db table name here to reflect store
+    const sql = `INSERT INTO movie_likes (user_id, movie_id) VALUES (${userId}, ${movieId})`;
 
-db.getCards = async () => {
-  const sql = 'SELECT * FROM cards';
-  const data = await pgQuery(sql);
-  return data.rows;
-};
+    const data = await pgQuery(sql);
+    console.log(data);
+    //Need to test data before continuing
+  }
+
+// db.getTables = async () => {
+//   const sql = 'SELECT * FROM information_schema.tables;';
+//   const data = await pgQuery(sql);
+//   return data.rows;
+// };
+
+// db.getCards = async () => {
+//   const sql = 'SELECT * FROM cards';
+//   const data = await pgQuery(sql);
+//   return data.rows;
+// };
 
 db.createUser = async (args) => {
+  console.log(args);
   try {
     const arr = [
       args['sub'],
@@ -47,8 +58,8 @@ db.createUser = async (args) => {
       args['email'],
     ];
     const sql = `INSERT INTO Users
-    (sub, picture, email)
-    VALUES ($1, $2, $3)
+    (sub, picture, email, page)
+    VALUES ($1, $2, $3, 1)
     RETURNING *;`;
     const data = await pgQuery(sql, arr);
     console.log(data.rows);
