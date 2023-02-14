@@ -45,11 +45,10 @@ db.createUser = async (args) => {
       args['sub'],
       args['picture'],
       args['email'],
-      args['email_verified'],
     ];
     const sql = `INSERT INTO Users
-    (sub, picture, email, email_verified)
-    VALUES ($1, $2, $3, $4)
+    (sub, picture, email)
+    VALUES ($1, $2, $3)
     RETURNING *;`;
     const data = await pgQuery(sql, arr);
     console.log(data.rows);
