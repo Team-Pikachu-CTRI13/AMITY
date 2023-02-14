@@ -38,7 +38,7 @@ const Navbar = ({ leftItems }) => {
     });
   }, []);
   return (
-    <>
+    <div className={styles.navbar}>
       <div className={styles.row}>
         <div className={`${styles.row}`}>
           {Object.entries(leftItems).map((e) => {
@@ -61,7 +61,7 @@ const Navbar = ({ leftItems }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
