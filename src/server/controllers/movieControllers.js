@@ -1,32 +1,23 @@
 const {api_key} = require('../../../secrets.js')
 const db = require('../../db/dbPostgresql.js')
-const axios = require('axios');
+const axios = require('axios')
+
 
 const movieControllers = {};
 
 
-movieControllers.getMovies = (req, res, next) => {
-  //console.log(req.body);
-  //need the sub from the user state in the frontend
-  const {sub} = req.body
-
-//   const userInfo = db.getUser(sub);
-//   const pageNum = userInfo.page;
-  const url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`
-  
-  //fetch for movie data
-  axios.get(url)
-    .then(response => {
-        // response.json();
-        // console.log(response.data);
-        //need to send the res to the next middleware or send it directly to the frontend
-        // res.locals.results = response.data.results;
-        next()
-    })
-    .catch(err => {
-        // console.log(err);
-        next(err)
-    })
+movieControllers.getMovies = async (req, res, next) => {
+  try {
+    const url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`
+    // console.log(api_key);
+    const response = await axios.get(url);
+    // console.log(response.data);
+    res.locals.results = response.data;
+    return next();
+  } catch (err) {
+    console.log('getMovies ERROR');
+    return next(err)
+  }
 }
 
 movieControllers.createLikedMovies = async (req, res, next) => {
