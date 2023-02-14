@@ -4,6 +4,7 @@ import './Movie.css';
 
 const Movie = () => {
   const [movies, setMovies] = useState([]);
+  const [index, setIndex] = useState(0);
   useEffect(() => {
     const response = axios({
       method: 'post',
@@ -17,8 +18,12 @@ const Movie = () => {
   console.log(movies);
   return (
     <div className='movie'>
-      {movies.map((movie) => <div>{movie.title}</div>)}
+      {/* index: {index} */}
+      {/* {movies.length > 0 && <div>{movies[index].title}</div>} */}
+      {movies.length > 0 && <img className='poster' src={`https://image.tmdb.org/t/p/w1280/${movies[index].poster_path}`}/>}
       {/* {movies} */}
+      <button onClick={() => setIndex((index + 1) % 20)}>next</button>
+      <button onClick={() => setIndex((index + 19) % 20)}>back</button>
     </div>
   )
 }

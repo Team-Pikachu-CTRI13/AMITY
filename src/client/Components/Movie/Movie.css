@@ -1,8 +1,13 @@
 .movie {
-  border: 3px solid silver;
+  /* border: 3px solid silver; */
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.poster {
+  height: 80dvh;
+  border-radius: 15px;
 }

@@ -1,5 +1,6 @@
 const express = require('express');
 const movieControllers = require('./controllers/movieControllers.js');
+const userControllers = require('./controllers/userControllers.js');
 
 
 const apiRouterCreator = function (db) {
@@ -17,6 +18,10 @@ const apiRouterCreator = function (db) {
 
   router.post('/likedMovies', movieControllers.createLikedMovies, (req, res) => {
     res,status(200).json(res.locals.createdMovie);
+  })
+
+  router.post('/connect', userControllers.connectPartner, (req, res) => {
+    res.status(200).send('test')
   })
 
 
