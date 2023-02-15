@@ -60,6 +60,20 @@ const db = { pool }; // pool can be used to forcibly disconnect
 
   }
 
+//this function will look for the user by its email in our user table
+//if target user exists,return the targetUser info; if not exists, the returned value should be undefined
+db.getUserByEmail = async function(email) {
+  
+  try {
+    const query = `SELECT * FROM Users WHERE email=\'${email}\';`;
+    const targetUser = await pgQuery(query);
+    console.log(targetUser.rows);
+    return targetUser.rows[0];
+  } catch (err) {
+    console.log('getUserByEmail ERROR', err)
+  }
+}
+
 // db.getTables = async () => {
 //   const sql = 'SELECT * FROM information_schema.tables;';
 //   const data = await pgQuery(sql);
@@ -94,8 +108,7 @@ db.createUser = async (args) => {
 
 db.getUser = async (sub) => {
   try {
-    const sql = `SELECT * 
-      FROM Users
+    const sql = `SELECT * FROM Users
       WHERE Users.sub=$1`;
     const data = await pgQuery(sql, [sub]);
     if (data.rows.length === 0) {
