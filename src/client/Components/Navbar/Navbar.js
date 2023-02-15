@@ -24,17 +24,15 @@ const Navbar = ({ leftItems }) => {
     }).then((res) => {
       console.log(res);
       if (res.data) {
-        if (res.data) {
-          console.log(res.data);
-          // Output of console.log(res.data);
-          //    { "_id": 1,
-          //      "sub": "117477940901052965444",
-          //      "picture": "https://lh3.googleusercontent.com/a/default-user=s96-c",
-          //      "email": "michael.chiang.mc5@gmail.com",
-          //      "email_verified": true}
-          dispatch(actionSetField({ field: 'email', value: res.data.email }));
-          dispatch(actionSetField({ field: '_id', value: res.data._id }));
-        }
+        console.log(res.data);
+        // Output of console.log(res.data);
+        //    { "_id": 1,
+        //      "sub": "117477940901052965444",
+        //      "picture": "https://lh3.googleusercontent.com/a/default-user=s96-c",
+        //      "email": "michael.chiang.mc5@gmail.com",
+        //      "email_verified": true}
+        dispatch(actionSetField({ field: 'email', value: res.data.email }));
+        dispatch(actionSetField({ field: 'id', value: res.data.id }));
       }
     });
   }, []);

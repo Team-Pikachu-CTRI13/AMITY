@@ -5,7 +5,7 @@ const initialState = {
   picture: null,
   email: null,
   email_verified: null,
-  _id: null,
+  id: null,
 };
 
 export const userSlice = createSlice({
