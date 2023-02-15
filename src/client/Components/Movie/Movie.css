@@ -9,16 +9,11 @@
 
 .poster {
   max-width: 100vw;
-  object-fit: cover;
-  border-radius: 1em;
-  border: 3px solid red;
-  margin: auto;
-  /* margin: auto; */
+  object-fit: contain;
 }
 
 .wrapper {
   width: 100%;
-  border-radius: 1em;
   height: 100%;
   max-width: 95vw;
   display: flex;

@@ -13,7 +13,7 @@ movieControllers.getMovies = async (req, res, next) => {
   //later maybe try to randomize it or read from users.page
   try {
     const url = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=2&with_watch_monetization_types=flatrate`
-  
+    
     const response = await axios.get(url);
     
     // filter through the movie info array to only send necessary info to frontend
@@ -32,7 +32,7 @@ movieControllers.getMovies = async (req, res, next) => {
          vote_average,
        })
     })
-    // console.log('is data filtered? ', filtered)
+
     res.locals.results = filtered;
     return next();
   } catch (err) {
@@ -41,18 +41,58 @@ movieControllers.getMovies = async (req, res, next) => {
   }
 }
 
+
+movieControllers.getMoviesByIds = async function(req, res, next) {
+  try {
+    const movieArr = res.locals.matchedMovies;
+    // console.log('L48 movieArr:', movieArr, 'L48 movieArr');
+
+    const getDetails = async function(movieId) {
+      const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${api_key}`;
+      const res = await axios.get(url);
+      const { id, original_language, overview, popularity, poster_path, release_date, title, vote_average } = res.data;
+      return { id, original_language, overview, popularity, poster_path, release_date, title, vote_average };
+    };
+
+    const results = [];
+    for (let i = 0; i < movieArr.length; i++) {
+      const { movie_id } = movieArr[i];
+      results.push(await getDetails(movie_id));
+    }
+    res.locals.matchedMovies = results;
+    return next();
+  } catch(err) {
+    console.log('getMoviesByIds', err);
+    return next(err);
+  }
+
+};
+
 movieControllers.createLikedMovies = async (req, res, next) => {
   //should retrieve userId and movieId from req.body and pass it to db.createLikedMovies
   try {
     const {userId, movieId} = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     const createdMovie = await db.createLikedMovies(userId, movieId);
     res.locals.createdMovie = createdMovie;
-    next();
+    return next();
   } catch(err) {
     console.log('ERROR in movieController.createLikedMovies: ', err);
-    next(err);
+    return next(err);
   }
 }
+
+movieControllers.matchedMovies = async function(req, res, next) {
+  const {user, partner} = req.body;
+
+  try {
+    const matchedMovies = await db.matchedMovies(user, partner);
+    res.locals.matchedMovies = matchedMovies;
+    return next();
+  } catch(err) {
+    console.log('ERROR in movieControllers matchedMovies: ', err);
+    return next(err);
+  }
+};
 
 module.exports = movieControllers;
