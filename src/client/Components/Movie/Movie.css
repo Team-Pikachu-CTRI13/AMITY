@@ -1,6 +1,6 @@
 .movie {
   /* border: 3px solid silver; */
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -96,22 +96,24 @@
   z-index: 2;
 }
 
-.like {
-  padding-top: 0.1em;
-}
 
 .like, .dislike {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 3em;
+  font-size: 2.6em;
   background-color: var(--yellow);
   color: var(--burgundy);
   border: 0.08em solid var(--burgundy);
   cursor: pointer;
   border-radius: 150%;
-  width: 1.3em;
-  height: 1.3em;
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.like {
+  padding-top: 0.15em;
+  color: var(--pink)
 }
 
 .likeButtons {
@@ -124,4 +126,16 @@
   transition: 0.25s ease;
   background-color: var(--burgundy);
   color: var(--yellow);
+}
+
+.logoSmall {
+  font-size: 2em;
+  font-weight: 500;
+  display: flex;
+  gap: 0.25em;
+  align-items: center;
+}
+
+.iconSmall {
+  height: 0.75em;
 }

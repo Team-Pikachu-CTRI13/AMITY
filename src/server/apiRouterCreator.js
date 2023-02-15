@@ -8,16 +8,16 @@ const apiRouterCreator = function (db) {
 
   //endpoint for fetch the initial 20 movies?
   router.post('/getMovies',
-   movieControllers.getMovies, 
+   movieControllers.getMovies,
   //  userControllers.incrementPage,
    (req, res) => {
     res.status(200).send(res.locals.results);
   })
 
   router.post('/likedMovies', movieControllers.createLikedMovies, (req, res) => {
-    res.status(200).json(res.locals.createdMovie);
+    res.status(200).send(res.locals.createdMovie);
   })
-  
+
 
   //this route is for initially find and connect partner
   //will send back the partner's info (with all user info) in response
@@ -26,8 +26,8 @@ const apiRouterCreator = function (db) {
   })
 
   router.get(
-    '/matchedMovies', 
-    movieControllers.matchedMovies, 
+    '/matchedMovies',
+    movieControllers.matchedMovies,
     movieControllers.getMoviesByIds,
     (req, res) => {
     res.status(200).json(res.locals.matchedMovies);

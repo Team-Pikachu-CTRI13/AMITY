@@ -1,5 +1,5 @@
 # TODO
-HELLLOOOOOOO WORLDDdddd
+-
 
 - add in dotenv with test, dev (prod later)
 - Add in testing
@@ -7,10 +7,9 @@ HELLLOOOOOOO WORLDDdddd
   - use mocks for db
 - proxy to 8080
 
+
 # Description
-
 This is a template project. It implements a minimal React frontend with Redux, express backend, postgresql database interface, and OAuth authentication.
-
 - Rename `SECRETS_EXAMPLE.js` to `secrets.js` and fill in information. Email michael.chiang.dev5@gmail.com if you have any questions.
 - Start the frontend with `npm run frontend`
 - Start the backend with `npm run backend`
@@ -18,15 +17,12 @@ This is a template project. It implements a minimal React frontend with Redux, e
 # Notes on design decisions
 
 ## Wrapping app in a creator function
-
 Note that app, passport are created dynamically with creator functions rather than the usual way of directly instantiating an express app / passport. The reason for this is increased modularity; dynamic creation of app gives us the ability to plug in different databases.
 
 Note that most express tutorials create a single server.js file that creates the server. I create the server dynamically using appCreator and set the listener, database in server.js. This has the advantage of increased modularity; you can initialize servers with different database which is useful for testing.
 
 ## Supertest
-
 There are two possible strategies to test the backend.
-
 1. Initialize and teardown the server prior to running tests, listening to port 8081. Run all tests on the same server instance.
 2. Initialize a different server for each test. These servers are passed directly to supertest's `request` and do not listen to any ports.
 

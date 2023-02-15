@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { actionSetField } from '../../Redux/slices/userSlice';
 
 import Movie from '../Movie/Movie.jsx';
 import Login from '../Login/Login.jsx';
@@ -19,19 +20,21 @@ const Home = () => {
       withCredentials: true,
       url: 'http://localhost:8080/auth/user',
     }).then((res) => {
-      // console.log(res);
       if (res.data) {
-        // console.log(res.data);
+        // console.log('!', res.data);
         dispatch(actionSetField({ field: 'email', value: res.data.email }));
+        dispatch(actionSetField({ field: 'hasPartner', value: res.data.has_partner }));
         dispatch(actionSetField({ field: 'id', value: res.data.id }));
+        dispatch(actionSetField({ field: 'page', value: res.data.page }));
+        dispatch(actionSetField({ field: 'picture', value: res.data.picture }));
+        dispatch(actionSetField({ field: 'sub', value: res.data.sub }));
       }
     });
   }, []);
 
   return (
     <>
-      <div>This is home</div>
-
+      {/* <div>This is home</div> */}
       {email ? (<Movie/>) : (<Login/>)}
     </>
   );
