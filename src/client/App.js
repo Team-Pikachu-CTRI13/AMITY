@@ -15,8 +15,8 @@ const App = () => {
           leftItems={{
             home: '/',
             home2: '/',
-            loginTest: '/login',
-            movie: '/movie',
+            l: '/login',
+            m: '/movie',
           }}
         />
         <div className='routes'>

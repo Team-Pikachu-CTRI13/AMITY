@@ -20,7 +20,7 @@ const apiRouterCreator = function (db) {
     res,status(200).json(res.locals.createdMovie);
   })
 
-  router.post('/connect', userControllers.connectPartner, (req, res) => {
+  router.post('/connect', userControllers.findPartner, (req, res) => {
     res.status(200).send('test')
   })
 

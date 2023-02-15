@@ -61,15 +61,14 @@ const db = { pool }; // pool can be used to forcibly disconnect
   }
 
 //this function will look for the user by its email in our user table
-//if target user exists,proceed to the next middleware (possibly connect two users)
-//if not exits, should send back message to frontend
+//if target user exists,return the targetUser info; if not exists, the returned value should be undefined
 db.getUserByEmail = async function(email) {
   
   try {
     const query = `SELECT * FROM Users WHERE email=\'${email}\';`;
     const targetUser = await pgQuery(query);
     console.log(targetUser.rows);
-    return
+    return targetUser.rows[0];
   } catch (err) {
     console.log('getUserByEmail ERROR', err)
   }
