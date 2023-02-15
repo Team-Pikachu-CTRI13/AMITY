@@ -7,7 +7,7 @@ const Login = () => {
     <div className='login'>
       <div className='logo'>
         amity
-        <img class='icon' src={logo} />
+        <img className='icon' src={logo} />
       </div>
       <button className='loginBtn' onClick={() => window.location.href = 'http://localhost:8080/auth/google'}>
         continue with Google
