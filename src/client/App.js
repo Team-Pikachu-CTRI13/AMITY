@@ -11,14 +11,14 @@ const App = () => {
     <div className='main'>
       <BrowserRouter>
         {/* Component 'Navbar' must be placed within browser router so that navbar links work */}
-        <Navbar
+        {/* <Navbar
           leftItems={{
             home: '/',
             home2: '/',
             l: '/login',
             m: '/movie',
           }}
-        />
+        /> */}
         <div className='routes'>
           <Routes>
             <Route exact path="/" element={<Home />} />

@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  sub: null,
-  picture: null,
   email: null,
-  email_verified: null,
+  hasPartner: null,
   id: null,
+  page: null,
+  picture: null,
+  sub: null,
+  partnerInfo: null
 };
 
 export const userSlice = createSlice({
@@ -16,6 +18,7 @@ export const userSlice = createSlice({
       const { field, value } = action.payload;
       if (Object.keys(state).includes(field) === false) return; // validate field: don't do anything if invalid field
       state[field] = value;
+      // console.log('in userSlice', state[field], state);
     },
   },
 });
