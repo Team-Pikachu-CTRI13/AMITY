@@ -14,11 +14,114 @@
 
 .wrapper {
   width: 100%;
-  height: 100%;
+  height: 80%;
   max-width: 95vw;
   display: flex;
   box-sizing: border-box;
   justify-content: center;
   overflow: hidden;
   position: relative;
+}
+
+.button-container {
+  position: absolute;
+  height: 100%;
+  aspect-ratio: 10.7 / 16;
+}
+
+.prev-slide,
+.next-slide {
+  opacity: 0.5;
+  cursor: pointer;
+  position: absolute;
+  background-color: var(--yellow);
+  color: var(--burgundy);
+  top: 45%;
+  height: 10%;
+  width: 15%;
+  font-family: 'Fredoka';
+  font-weight: bold;
+  font-size: 1.5em;
+  border-radius: 0 0.75em 0.75em 0;
+  transition: 0.3s ease;
+  user-select: none;
+  border: 0.15em solid var(--burgundy);
+  border-left: none;
+}
+
+.info {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: 0.3s ease;
+  border: 0;
+  width: 2.5em;
+  height: 2.5em;
+  top: 1.5%;
+  right: 1.5%;
+  background-color: var(--yellow);
+  color: var(--burgundy);
+  font-weight: 600;
+  font-family: 'Fredoka';
+  border: 0.25em solid var(--burgundy);
+  opacity: 0.5;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.prev-slide:hover, .next-slide:hover, .info:hover {
+  opacity: 0.8;
+}
+
+.next-slide {
+  right: 0;
+  border-radius: 0.75em 0 0 0.75em;
+  border: 0.15em solid var(--burgundy);
+  border-right: none;
+}
+
+.modal {
+  position: absolute;
+  /* top: 6%; */
+  /* border: 3px solid blue; */
+  height: 100%;
+  background-color: rgba(255, 243, 229, 0.95);
+  padding: 1em;
+  backdrop-filter: blur(100px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.like {
+  padding-top: 0.1em;
+}
+
+.like, .dislike {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3em;
+  background-color: var(--yellow);
+  color: var(--burgundy);
+  border: 0.08em solid var(--burgundy);
+  cursor: pointer;
+  border-radius: 150%;
+  width: 1.3em;
+  height: 1.3em;
+}
+
+.likeButtons {
+  margin-top: 1em;
+  display: flex;
+  gap: 4em;
+}
+
+.like:hover, .dislike:hover {
+  transition: 0.25s ease;
+  background-color: var(--burgundy);
+  color: var(--yellow);
 }

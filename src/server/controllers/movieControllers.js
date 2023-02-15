@@ -22,7 +22,7 @@ movieControllers.getMovies = async (req, res, next) => {
        //destructuring from each el
        const { id, original_language, overview, popularity, poster_path, release_date, title, vote_average } = el;
        filtered.push({
-         id, 
+         movieId: id,
          original_language,
          overview,
          popularity,
@@ -51,7 +51,7 @@ movieControllers.getMoviesByIds = async function(req, res, next) {
       const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${api_key}`;
       const res = await axios.get(url);
       const { id, original_language, overview, popularity, poster_path, release_date, title, vote_average } = res.data;
-      return { id, original_language, overview, popularity, poster_path, release_date, title, vote_average };
+      return { movieId: id, original_language, overview, popularity, poster_path, release_date, title, vote_average };
     };
 
     const results = [];
@@ -71,9 +71,9 @@ movieControllers.getMoviesByIds = async function(req, res, next) {
 movieControllers.createLikedMovies = async (req, res, next) => {
   //should retrieve userId and movieId from req.body and pass it to db.createLikedMovies
   try {
-    const {userId, movieId} = req.body;
+    const { id, movieId } = req.body;
     // console.log(req.body);
-    const createdMovie = await db.createLikedMovies(userId, movieId);
+    const createdMovie = await db.createLikedMovies(id, movieId);
     res.locals.createdMovie = createdMovie;
     return next();
   } catch(err) {
@@ -84,7 +84,6 @@ movieControllers.createLikedMovies = async (req, res, next) => {
 
 movieControllers.matchedMovies = async function(req, res, next) {
   const {user, partner} = req.body;
-
   try {
     const matchedMovies = await db.matchedMovies(user, partner);
     res.locals.matchedMovies = matchedMovies;

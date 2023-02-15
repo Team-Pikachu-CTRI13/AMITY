@@ -56,8 +56,8 @@ const db = { pool }; // pool can be used to forcibly disconnect
       FROM movie_likes aliasA
       JOIN movie_likes aliasB ON aliasA.movie_id=aliasB.movie_id
       WHERE aliasA.user_id=${user} AND aliasB.user_id=${partner};`;
-    const getmovies = await pgQuery(sql);
-    return getmovies.rows;
+    const gotmovies = await pgQuery(sql);
+    return gotmovies.rows;
   };
 
 //this function will look for the user by its email in our user table
@@ -86,13 +86,20 @@ db.connectPartner = async function(currUserId, targetUserId) {
   const arr = [currUserId, targetUserId];
   
   try {
+    //this query is going to write matched users data into the Matches table
     const query = `INSERT INTO Matches (user1, user2) VALUES ($1, $2) RETURNING *;`;
     const data = await pgQuery(query, arr);
-    console.log('inside db.connectPartner', data.rows);
+    // console.log('inside db.connectPartner', data.rows);
+
+    //this query2 is going to update the hasPartner field in User table to true because both users now have partners
+    const query2 = `UPDATE Users SET has_partner = true WHERE id=$1 OR id=$2 RETURNING *;`
+    const data2 = await pgQuery(query2, arr);
+    // console.log('did we update two connected users has_partner to true? ', data2.rows)
+
     if (data.rows.length === 0) {
       return null;
-    } else if (data.rows.length === 1) {
-      return data.rows[0];
+    } else if (data.rows.length === 1 && data2.rows.length === 2) {
+      return [data.rows[0], data2.rows];
     } else {
       throw `db.connectPartner ERROR`;
     }
@@ -101,18 +108,6 @@ db.connectPartner = async function(currUserId, targetUserId) {
     return undefined;
   }
 }
-
-// db.getTables = async () => {
-//   const sql = 'SELECT * FROM information_schema.tables;';
-//   const data = await pgQuery(sql);
-//   return data.rows;
-// };
-
-// db.getCards = async () => {
-//   const sql = 'SELECT * FROM cards';
-//   const data = await pgQuery(sql);
-//   return data.rows;
-// };
 
 db.createUser = async (args) => {
   // console.log(args);
@@ -127,7 +122,7 @@ db.createUser = async (args) => {
       VALUES ($1, $2, $3, 1)
       RETURNING *;`;
     const data = await pgQuery(sql, arr);
-    // console.log(data.rows);
+    console.log('DATA ROWS: L125', data.rows[0]);
     return data.rows[0];
   } catch (err) {
     console.log('createUser', err);
@@ -142,8 +137,7 @@ db.getUser = async (sub) => {
     if (data.rows.length === 0) {
       return null;
     } else if (data.rows.length === 1) {
-      console.log('inside db.getUser: ', data.rows[0].id)
-      console.log('inside db.getUser: ', data.rows[0])
+      // console.log('L152', data.rows[0]);
       return data.rows[0];
     } else {
       throw `db.getUser: more than one user found with sub ${sub} (found ${data.rows.length})`;
@@ -153,5 +147,20 @@ db.getUser = async (sub) => {
     return undefined;
   }
 };
+
+db.incrementPage = async function(page, id) {
+  try {
+    const sql = `UPDATE Users
+      SET page=${page}
+      WHERE id=${id}
+      RETURNING *;`;
+    const pageNum = await pgQuery(sql);
+    return pageNum.rows[0];
+    // console.log('L158 pageNum:', pageNum.rows[0]);
+  } catch(err) {
+    console.log('db.incrementPage:', err);
+  }
+};
+
 
 module.exports = db;
