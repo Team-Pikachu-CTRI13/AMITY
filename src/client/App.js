@@ -1,8 +1,8 @@
-import './App.css'
+import './App.css';
 import React from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Home from './Components/Home/Home';
-import Login from './Components/Login/Login'
+import Login from './Components/Login/Login';
 import Navbar from './Components/Navbar/Navbar';
 import Movie from './Components/Movie/Movie';
 
@@ -21,9 +21,9 @@ const App = () => {
         /> */}
         <div className='routes'>
           <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route exact path="/login" element={<Login />} />
-            <Route exact path="/movie" element={<Movie />} />
+            <Route exact path='/' element={<Home />} />
+            <Route exact path='/login' element={<Login />} />
+            <Route exact path='/movie' element={<Movie />} />
           </Routes>
         </div>
       </BrowserRouter>

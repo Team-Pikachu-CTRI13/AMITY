@@ -14,7 +14,7 @@ const Movie = (props) => {
   const [seenMovies, setSeenMovies] = useState(new Set([0]));
 
   useEffect(() => {
-    getNewMovies()
+    getNewMovies();
   }, []);
   console.log(movies);
 
@@ -23,7 +23,7 @@ const Movie = (props) => {
     const response = axios({
       method: 'post',
       withCredentials: true,
-      url: 'http://localhost:8080/api/getMovies'
+      url: 'http://localhost:8080/api/getMovies',
     }).then(({ data }) => {
       console.table(data);
       setMovies(data);
@@ -35,7 +35,7 @@ const Movie = (props) => {
   // console.log('currUser in movies component', currUser); => we have access to the currUser info as an object
 
   //handleLike
-  const handleLike = e => {
+  const handleLike = (e) => {
     // console.log('handle like fired');
     // console.log('do we have access to the current movie? ', movies[index]); => yes, we do
 
@@ -45,29 +45,36 @@ const Movie = (props) => {
 
     console.log('when user click like', id, movieId);
 
-    axios.post('http://localhost:8080/api/likedMovies', {
-      id,
-      movieId
-    })
-      .then(res => {console.log('anything in res.data',res.data)})
-      .catch(err => {console.log(err)})
-  }
+    axios
+      .post('http://localhost:8080/api/likedMovies', {
+        id,
+        movieId,
+      })
+      .then((res) => {
+        console.log('anything in res.data', res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-  const handleDislike = e => {
+  const handleDislike = (e) => {
     // console.log('handle dislike fired');
     //if user click the dislike button, nothing will happen at the backend
     //we will just direct the user to the next move by invoking nextMovie
-    console.log('HANDLE CLICK TARGET: ', e.target)
+    console.log('HANDLE CLICK TARGET: ', e.target);
     nextMovie();
-  }
+  };
 
   const hasPartner = useSelector((state) => state.user.hasPartner);
   const useInput = (init) => {
-    const [ value, setValue ] = useState(init);
-    const onChange = (e) => { setValue(e.target.value); };
-    return [ value, onChange ];
+    const [value, setValue] = useState(init);
+    const onChange = (e) => {
+      setValue(e.target.value);
+    };
+    return [value, onChange];
   };
-  const [ partnerEmail, partnerOnChange ] = useInput('');
+  const [partnerEmail, partnerOnChange] = useInput('');
   const dispatch = useDispatch();
   const submitPartner = async () => {
     // alert('in submitPartner');
@@ -80,7 +87,9 @@ const Movie = (props) => {
       console.log('!L72 submitPartner outside:', res.data);
       if (res.data) {
         console.log('!L72 submitPartner:', res.data);
-        dispatch(actionSetField({ field: 'partnerInfo', value: res.data.email }));
+        dispatch(
+          actionSetField({ field: 'partnerInfo', value: res.data.email })
+        );
       }
     });
   };
@@ -91,7 +100,7 @@ const Movie = (props) => {
     setSeenMovies(new Set([...seenMovies, newIndex]));
     setIndex(newIndex);
     if (seenMovies.size >= 20) getNewMovies();
-   };
+  };
 
   const prevMovie = () => {
     setModalOpen(false);
@@ -108,23 +117,22 @@ const Movie = (props) => {
         <img className='iconSmall' src={logo} />
       </div>
 
-      {hasPartner || (<>PLEASE
-        <form>
-          <input name="getPartner" type="text" placeholder="your partner's email" value={partnerEmail} onChange={partnerOnChange} />
-          {/* <Link to="/page"> */}
-            <button type='submit' onClick={submitPartner}>CONNECT!</button>
-          {/* </Link> */}
-        </form>
-      </>)}
-
       {movies.length > 0 && (
         <>
           <div className='wrapper'>
-            <div className="button-container">
-              <button onClick={() => setModalOpen(!modalOpen)} className='info'>i</button>
-              {modalOpen && <div className='modal'>{movies[index].overview}</div>}
-              <button onClick={prevMovie} className="prev-slide">&#10094;</button>
-              <button onClick={nextMovie} className="next-slide">&#10095;</button>
+            <div className='button-container'>
+              <button onClick={() => setModalOpen(!modalOpen)} className='info'>
+                i
+              </button>
+              {modalOpen && (
+                <div className='modal'>{movies[index].overview}</div>
+              )}
+              <button onClick={prevMovie} className='prev-slide'>
+                &#10094;
+              </button>
+              <button onClick={nextMovie} className='next-slide'>
+                &#10095;
+              </button>
             </div>
 
             {/* <button onClick={() => setModalOpen(!modalOpen)} className='info'>
@@ -132,7 +140,10 @@ const Movie = (props) => {
             </button>
             {modalOpen && <div className='modal'>{movies[index].overview}</div>} */}
 
-            <img className='poster' src={`https://image.tmdb.org/t/p/w1280/${movies[index].poster_path}`}/>
+            <img
+              className='poster'
+              src={`https://image.tmdb.org/t/p/w1280/${movies[index].poster_path}`}
+            />
           </div>
           <div className='likeButtons'>
             <button className='like' onClick={handleLike}>
@@ -145,7 +156,7 @@ const Movie = (props) => {
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
 export default Movie;

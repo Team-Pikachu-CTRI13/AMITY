@@ -1,9 +1,42 @@
 .row {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
+  padding: 0;
+  /* border: 1px solid black; */
+}
+
+.row a {
+  font-size: 1.4em;
+  color: var(--burgundy);
+  text-decoration: none;
 }
 
 .margin {
-  padding:10px;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.homeBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.logoutBtn {
+  margin-right: 0.3em;
+}
+
+.logoutBtn:hover,
+.homeBtn:hover {
+  cursor: pointer;
+  color: var(--pink);
+}
+
+.profileImg {
+  width: 1.9em;
+  height: 1.9em;
+  border-radius: 50%;
 }

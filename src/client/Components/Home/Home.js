@@ -5,9 +5,9 @@ import { actionSetField } from '../../Redux/slices/userSlice';
 
 import Movie from '../Movie/Movie.jsx';
 import Login from '../Login/Login.jsx';
+import Navbar from '../Navbar/Navbar';
 
 import logo from '../../assets/amity logo - dark.png';
-
 
 const Home = () => {
   const email = useSelector((state) => state.user.email);
@@ -23,7 +23,9 @@ const Home = () => {
       if (res.data) {
         // console.log('!', res.data);
         dispatch(actionSetField({ field: 'email', value: res.data.email }));
-        dispatch(actionSetField({ field: 'hasPartner', value: res.data.has_partner }));
+        dispatch(
+          actionSetField({ field: 'hasPartner', value: res.data.has_partner })
+        );
         dispatch(actionSetField({ field: 'id', value: res.data.id }));
         dispatch(actionSetField({ field: 'page', value: res.data.page }));
         dispatch(actionSetField({ field: 'picture', value: res.data.picture }));
@@ -34,8 +36,8 @@ const Home = () => {
 
   return (
     <>
-      {/* <div>This is home</div> */}
-      {email ? (<Movie/>) : (<Login/>)}
+      {email && <Navbar />}
+      {email ? <Movie /> : <Login />}
     </>
   );
 };

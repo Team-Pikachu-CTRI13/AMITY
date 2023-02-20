@@ -12,6 +12,7 @@ const Navbar = ({ leftItems }) => {
   // 'user' is the name of the slice (see userSlice.js)
   // 'email' is a field in the slice
   const email = useSelector((state) => state.user.email);
+  const items = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   // On first render, get user data
@@ -39,21 +40,27 @@ const Navbar = ({ leftItems }) => {
   return (
     <div className={styles.navbar}>
       <div className={styles.row}>
-        <div className={`${styles.row}`}>
-          {Object.entries(leftItems).map((e) => {
-            const [title, url] = e;
-            return (
-              <div className={styles.margin} key={uuid()}>
-                <Link to={url}>{title}</Link>
-              </div>
-            );
-          })}
+        <div className={styles.row}>
+          {console.log('ITEMS: ', items)}
+          {
+            <a className={styles.homeBtn} href='/'>
+              Home
+            </a>
+          }
         </div>
 
         <div className={styles.row}>
           <div className={styles.margin}>
             {email ? (
-              <a href="http://localhost:8080/auth/logout">logout {email}</a>
+              <>
+                <a
+                  className={styles.logoutBtn}
+                  href='http://localhost:8080/auth/logout'
+                >
+                  Logout
+                </a>
+                <img className={styles.profileImg} src={items.picture} />
+              </>
             ) : (
               <a href={`http://localhost:8080/auth/google`}>log in</a>
             )}
