@@ -1,6 +1,6 @@
 .movie {
   /* border: 3px solid silver; */
-  height: 100vh;
+  height: 93vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -71,7 +71,9 @@
   z-index: 3;
 }
 
-.prev-slide:hover, .next-slide:hover, .info:hover {
+.prev-slide:hover,
+.next-slide:hover,
+.info:hover {
   opacity: 0.8;
 }
 
@@ -96,8 +98,8 @@
   z-index: 2;
 }
 
-
-.like, .dislike {
+.like,
+.dislike {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -113,7 +115,7 @@
 
 .like {
   padding-top: 0.15em;
-  color: var(--pink)
+  color: var(--pink);
 }
 
 .likeButtons {
@@ -122,18 +124,21 @@
   gap: 4em;
 }
 
-.like:hover, .dislike:hover {
+.like:hover,
+.dislike:hover {
   transition: 0.25s ease;
   background-color: var(--burgundy);
   color: var(--yellow);
 }
 
 .logoSmall {
-  font-size: 2em;
+  font-size: 2.5em;
   font-weight: 500;
   display: flex;
   gap: 0.25em;
   align-items: center;
+  margin-bottom: 0.2em;
+  /* border: 1px solid black; */
 }
 
 .iconSmall {

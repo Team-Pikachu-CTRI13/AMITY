@@ -1,7 +1,7 @@
 const { appCreator } = require('./appCreator.js');
 const PORT = 8080;
 
-const dbPostgreSQL = require('../db/dbPostgreSQL.js');
+const dbPostgreSQL = require('../db/dbPostgresql.js');
 
 // start server
 const app = appCreator(dbPostgreSQL);
