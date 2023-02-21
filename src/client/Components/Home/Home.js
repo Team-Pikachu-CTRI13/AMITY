@@ -19,20 +19,28 @@ const Home = () => {
       method: 'get',
       withCredentials: true,
       url: 'http://localhost:8080/auth/user',
-    }).then((res) => {
-      if (res.data) {
-        // console.log('!', res.data);
-        dispatch(actionSetField({ field: 'email', value: res.data.email }));
-        dispatch(
-          actionSetField({ field: 'hasPartner', value: res.data.has_partner })
-        );
-        dispatch(actionSetField({ field: 'id', value: res.data.id }));
-        dispatch(actionSetField({ field: 'page', value: res.data.page }));
-        dispatch(actionSetField({ field: 'picture', value: res.data.picture }));
-        dispatch(actionSetField({ field: 'sub', value: res.data.sub }));
-      }
+    }).then(({data}) => {
+      if (data) {
+         const response = axios({
+          method: 'get',
+          withCredentials: true,
+          url: `http://localhost:8080/auth/test/${data.sub}`,
+        }).then(({data}) => {
+          // console.log('?', data);
+          if (data) {
+            // console.log('!', data);
+            dispatch(actionSetField({ field: 'email', value: data.email }));
+            dispatch(actionSetField({ field: 'hasPartner', value: data.has_partner }));
+            dispatch(actionSetField({ field: 'id', value: data.id }));
+            dispatch(actionSetField({ field: 'page', value: data.page }));
+            dispatch(actionSetField({ field: 'picture', value: data.picture }));
+            dispatch(actionSetField({ field: 'sub', value: data.sub }));
+          } else { console.log('error in home.js'); }
+        });
+      } else { console.log('error in home.js'); }
     });
   }, []);
+
 
   return (
     <>

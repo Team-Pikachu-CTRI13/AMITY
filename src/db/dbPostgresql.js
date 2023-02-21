@@ -4,7 +4,7 @@ const { PG_URI, DEBUG } = require('../../secrets.js');
 /*
 pqQuery implements functionality to run a parameterized sql query on a
 postgreSQL database specified by PG_URI. Pool keeps connection open for
-some period of time to assist pooling of queries. 
+some period of time to assist pooling of queries.
 */
 const pool = new Pool({
   connectionString: PG_URI,
@@ -27,7 +27,7 @@ db object creates sql commands and sends them to database, then
 returns output to backend
 */
 const db = { pool }; // pool can be used to forcibly disconnect
-  
+
   //creates new entry with liked movies for each user
   db.createLikedMovies = async function(userId, movieId) {
     try {
@@ -63,11 +63,11 @@ const db = { pool }; // pool can be used to forcibly disconnect
 //this function will look for the user by its email in our user table
 //if target user exists,return the targetUser info; if not exists, the returned value should be undefined
 db.getUserByEmail = async function(email) {
-  
+
   try {
     const query = `SELECT * FROM Users WHERE email=\'${email}\';`;
     const data = await pgQuery(query);
-    console.log(data.rows);
+    // console.log('getUserByEmail', data.rows);
     if (data.rows.length === 0) {
       return null;
     } else if (data.rows.length === 1) {
@@ -84,7 +84,7 @@ db.getUserByEmail = async function(email) {
 //this function will create a match for 2 users
 db.connectPartner = async function(currUserId, targetUserId) {
   const arr = [currUserId, targetUserId];
-  
+  // console.log('in connect partner!')
   try {
     //this query is going to write matched users data into the Matches table
     const query = `INSERT INTO Matches (user1, user2) VALUES ($1, $2) RETURNING *;`;
