@@ -13,26 +13,18 @@ const Movie = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [seenMovies, setSeenMovies] = useState(new Set([0]));
 
-  useEffect(() => {
-    getNewMovies();
-  }, []);
-  console.log(movies);
+  useEffect(() => { getNewMovies(); }, []);
 
   const getNewMovies = () => {
-    console.log('GETTING NEW MOVIES');
     const response = axios({
       method: 'post',
       withCredentials: true,
       url: 'http://localhost:8080/api/getMovies',
-    }).then(({ data }) => {
-      console.table(data);
-      setMovies(data);
-    });
+    }).then(({ data }) => { setMovies(data); });
   };
 
   //The code block below is getting access to the state about the loggedin user
   const currUser = useSelector((state) => state.user);
-  // console.log('currUser in movies component', currUser); => we have access to the currUser info as an object
 
   //handleLike
   const handleLike = (e) => {
@@ -43,30 +35,24 @@ const Movie = (props) => {
     const id = currUser.id;
     const movieId = movies[index].movieId;
 
-    console.log('when user click like', id, movieId);
+    // console.log('when user click like', id, movieId);
 
     axios
-      .post('http://localhost:8080/api/likedMovies', {
-        id,
-        movieId,
-      })
-      .then((res) => {
-        console.log('anything in res.data', res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .post('http://localhost:8080/api/likedMovies', { id, movieId, })
+      .then((res) => { console.log('anything in res.data', res.data); })
+      .catch((err) => { console.log(err); });
   };
 
   const handleDislike = (e) => {
     // console.log('handle dislike fired');
     //if user click the dislike button, nothing will happen at the backend
     //we will just direct the user to the next move by invoking nextMovie
-    console.log('HANDLE CLICK TARGET: ', e.target);
+    // console.log('HANDLE CLICK TARGET: ', e.target);
     nextMovie();
   };
 
   const hasPartner = useSelector((state) => state.user.hasPartner);
+
   const useInput = (init) => {
     const [value, setValue] = useState(init);
     const onChange = (e) => {
@@ -75,23 +61,15 @@ const Movie = (props) => {
     return [value, onChange];
   };
   const [partnerEmail, partnerOnChange] = useInput('');
+
   const dispatch = useDispatch();
-  const submitPartner = async () => {
-    // alert('in submitPartner');
-    const response = await axios({
-      method: 'POST',
-      withCredentials: true,
-      url: 'http://localhost:8080/api/connect',
-    }).then((res) => {
-      alert('!', res.data);
-      console.log('!L72 submitPartner outside:', res.data);
-      if (res.data) {
-        console.log('!L72 submitPartner:', res.data);
-        dispatch(
-          actionSetField({ field: 'partnerInfo', value: res.data.email })
-        );
-      }
-    });
+  const submitPartner = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:8080/api/connect', { id: currUser.id, partnerEmail });
+      dispatch( actionSetField({ field: 'partnerInfo', value: response.data.email }) );
+      dispatch( actionSetField({ field: 'hasPartner', value: response.data.has_partner }) );
+    } catch(err) { console.log('ERROR IN submitPartner in movie.jsx: ', err); }
   };
 
   const nextMovie = () => {
@@ -112,10 +90,18 @@ const Movie = (props) => {
 
   return (
     <div className='movie'>
+      <h1>Your partner is: {JSON.stringify(hasPartner)}</h1>
       <div className='logoSmall'>
         amity
         <img className='iconSmall' src={logo} />
       </div>
+
+      {hasPartner || (<>PLEASE
+        <form>
+          <input name="getPartner" type="text" placeholder="your partner's email" value={partnerEmail} onChange={partnerOnChange} />
+          <button type='submit' onClick={(e) => submitPartner(e)}>CONNECT!</button>
+        </form>
+      </>)}
 
       {movies.length > 0 && (
         <>

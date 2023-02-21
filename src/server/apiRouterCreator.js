@@ -22,8 +22,14 @@ const apiRouterCreator = function (db) {
   //this route is for initially find and connect partner
   //will send back the partner's info (with all user info) in response
   router.post('/connect', userControllers.findPartner, userControllers.connectPartner, (req, res) => {
-    res.status(200).send(res.locals.partner);
-  })
+    console.log('locals.partner', res.locals.partner);
+    res.status(200).json(res.locals.partner);
+  });
+
+  // router.post('/connect', (req, res) => {
+  //   // console.log('locals.partner', res.locals.partner);
+  //   res.status(200).json({ hello: 'michael'});
+  // });
 
   router.get(
     '/matchedMovies',

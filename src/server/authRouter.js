@@ -1,24 +1,34 @@
 const express = require('express');
 const { passportCreator } = require('./passportCreator.js');
 const { DEBUG } = require('../../secrets.js');
+const db = require('../db/dbPostgresql.js');
 
 const router = express.Router();
 const passport = passportCreator();
+
+router.get('/test/:sub', async (req, res) => {
+  const { sub } = req.params;
+  // console.log('sub', sub);
+  const userData = await db.getUser(sub)
+  res.status(200).json(userData);
+
+})
+
 
 router.get('/user', (req, res) => {
   // req.user is the parsed jwt containing user information
   // It is inconvenient to debug when authentication is required
   // since you have to repeatedly log in to test a feature. Setting
   // DEBUG to true automatically logs you in with a dummy user
-  if (DEBUG) {
-    req.user = {
-      _id: 4,
-      sub: '114622580175644930120',
-      picture: 'https://lh3.googleusercontent.com/a/default-user=s96-c',
-      email: 'michael.chiang.dev5@gmail.com',
-      email_verified: true,
-    };
-  }
+  // if (DEBUG) {
+  //   req.user = {
+  //     _id: 4,
+  //     sub: '114622580175644930120',
+  //     picture: 'https://lh3.googleusercontent.com/a/default-user=s96-c',
+  //     email: 'michael.chiang.dev5@gmail.com',
+  //     email_verified: true,
+  //   };
+  // }
   res.status(200).json(req.user ? req.user : null);
 });
 

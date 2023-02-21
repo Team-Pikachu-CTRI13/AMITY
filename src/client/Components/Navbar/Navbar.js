@@ -23,9 +23,9 @@ const Navbar = ({ leftItems }) => {
       withCredentials: true,
       url: 'http://localhost:8080/auth/user',
     }).then((res) => {
-      console.log(res);
+      // console.log(res);
       if (res.data) {
-        console.log(res.data);
+        // console.log(res.data);
         // Output of console.log(res.data);
         //    { "_id": 1,
         //      "sub": "117477940901052965444",
@@ -41,11 +41,9 @@ const Navbar = ({ leftItems }) => {
     <div className={styles.navbar}>
       <div className={styles.row}>
         <div className={styles.row}>
-          {console.log('ITEMS: ', items)}
+          {/* {console.log('ITEMS: ', items)} */}
           {
-            <a className={styles.homeBtn} href='/'>
-              Home
-            </a>
+            <a className={styles.homeBtn} href='/'>Home</a>
           }
         </div>
 

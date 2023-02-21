@@ -1,5 +1,5 @@
 // import regeneratorRuntime from 'regenerator-runtime';
 module.exports = () => {
-  console.log('setting up');
+  // console.log('setting up');
   //global.testServer = require('./server');
 };
