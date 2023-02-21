@@ -90,7 +90,7 @@ const Movie = (props) => {
 
   return (
     <div className='movie'>
-      <h1>Your partner is: {JSON.stringify(hasPartner)}</h1>
+      {/* <h1>Your partner is: {JSON.stringify(hasPartner)}</h1> */}
       <div className='logoSmall'>
         amity
         <img className='iconSmall' src={logo} />
