@@ -40,10 +40,12 @@ const Navbar = ({ leftItems }) => {
   return (
     <div className={styles.navbar}>
       <div className={styles.row}>
+        {/* {console.log(items)} */}
         <div className={styles.row}>
-          {/* {console.log('ITEMS: ', items)} */}
           {
-            <a className={styles.homeBtn} href='/'>Home</a>
+            <a className={styles.homeBtn} href='/'>
+              Home
+            </a>
           }
         </div>
 
@@ -57,7 +59,11 @@ const Navbar = ({ leftItems }) => {
                 >
                   Logout
                 </a>
-                <img className={styles.profileImg} src={items.picture} />
+                <img
+                  className={styles.profileImg}
+                  src={items.picture}
+                  referrerPolicy='no-referrer'
+                />
               </>
             ) : (
               <a href={`http://localhost:8080/auth/google`}>log in</a>

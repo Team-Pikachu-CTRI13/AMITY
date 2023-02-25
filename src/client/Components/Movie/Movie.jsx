@@ -13,14 +13,18 @@ const Movie = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [seenMovies, setSeenMovies] = useState(new Set([0]));
 
-  useEffect(() => { getNewMovies(); }, []);
+  useEffect(() => {
+    getNewMovies();
+  }, []);
 
   const getNewMovies = () => {
     const response = axios({
       method: 'post',
       withCredentials: true,
       url: 'http://localhost:8080/api/getMovies',
-    }).then(({ data }) => { setMovies(data); });
+    }).then(({ data }) => {
+      setMovies(data);
+    });
   };
 
   //The code block below is getting access to the state about the loggedin user
@@ -38,9 +42,13 @@ const Movie = (props) => {
     // console.log('when user click like', id, movieId);
 
     axios
-      .post('http://localhost:8080/api/likedMovies', { id, movieId, })
-      .then((res) => { console.log('anything in res.data', res.data); })
-      .catch((err) => { console.log(err); });
+      .post('http://localhost:8080/api/likedMovies', { id, movieId })
+      .then((res) => {
+        console.log('anything in res.data', res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleDislike = (e) => {
@@ -66,10 +74,22 @@ const Movie = (props) => {
   const submitPartner = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/api/connect', { id: currUser.id, partnerEmail });
-      dispatch( actionSetField({ field: 'partnerInfo', value: response.data.email }) );
-      dispatch( actionSetField({ field: 'hasPartner', value: response.data.has_partner }) );
-    } catch(err) { console.log('ERROR IN submitPartner in movie.jsx: ', err); }
+      const response = await axios.post('http://localhost:8080/api/connect', {
+        id: currUser.id,
+        partnerEmail,
+      });
+      dispatch(
+        actionSetField({ field: 'partnerInfo', value: response.data.email })
+      );
+      dispatch(
+        actionSetField({
+          field: 'hasPartner',
+          value: response.data.has_partner,
+        })
+      );
+    } catch (err) {
+      console.log('ERROR IN submitPartner in movie.jsx: ', err);
+    }
   };
 
   const nextMovie = () => {
@@ -90,19 +110,32 @@ const Movie = (props) => {
 
   return (
     <div className='movie'>
-      {/* <h1>Your partner is: {JSON.stringify(hasPartner)}</h1> */}
       <div className='logoSmall'>
         amity
         <img className='iconSmall' src={logo} />
       </div>
-
-      {hasPartner || (<>PLEASE
-        <form>
-          <input name="getPartner" type="text" placeholder="your partner's email" value={partnerEmail} onChange={partnerOnChange} />
-          <button type='submit' onClick={(e) => submitPartner(e)}>CONNECT!</button>
-        </form>
-      </>)}
-
+      {hasPartner || (
+        <>
+          PLEASE
+          <form>
+            <input
+              className={styles.connectInput}
+              name='getPartner'
+              type='text'
+              placeholder="your partner's email"
+              value={partnerEmail}
+              onChange={partnerOnChange}
+            />
+            <button
+              className={styles.connectBtn}
+              type='submit'
+              onClick={(e) => submitPartner(e)}
+            >
+              Connect!
+            </button>
+          </form>
+        </>
+      )}
       {movies.length > 0 && (
         <>
           <div className='wrapper'>

@@ -28,42 +28,39 @@ returns output to backend
 */
 const db = { pool }; // pool can be used to forcibly disconnect
 
-  //creates new entry with liked movies for each user
-  db.createLikedMovies = async function(userId, movieId) {
-    try {
-      //checks to see if movieId already exists for user
-      const check = `SELECT * FROM Movie_likes
+//creates new entry with liked movies for each user
+db.createLikedMovies = async function (userId, movieId) {
+  try {
+    //checks to see if movieId already exists for user
+    const check = `SELECT * FROM Movie_likes
       WHERE user_id=${userId} AND movie_id=${movieId};`;
-      const checker = await pgQuery(check);
+    const checker = await pgQuery(check);
 
-      const sql = `INSERT INTO Movie_likes
+    const sql = `INSERT INTO Movie_likes
         (user_id, movie_id)
         VALUES (${userId}, ${movieId})
         RETURNING *;`;
-        //if movieId doesn't exist then create it.
-      const data = checker.rows[0] ?? await pgQuery(sql);
-      // console.log('DATA: ', data.rows);
-    } catch (err) {
-      console.log('db.createLikedMovies ERROR:', err);
-    }
-
-
+    //if movieId doesn't exist then create it.
+    const data = checker.rows[0] ?? (await pgQuery(sql));
+    // console.log('DATA: ', data.rows);
+  } catch (err) {
+    console.log('db.createLikedMovies ERROR:', err);
   }
+};
 
-  //pulls all movies liked by both partners
-  db.matchedMovies = async function (user, partner) {
-    const sql = `SELECT aliasA.movie_id
+//pulls all movies liked by both partners
+db.matchedMovies = async function (user, partner) {
+  const sql = `SELECT aliasA.movie_id
       FROM movie_likes aliasA
       JOIN movie_likes aliasB ON aliasA.movie_id=aliasB.movie_id
       WHERE aliasA.user_id=${user} AND aliasB.user_id=${partner};`;
-    const gotmovies = await pgQuery(sql);
-    return gotmovies.rows;
-  };
+  const gotmovies = await pgQuery(sql);
+  return gotmovies.rows;
+};
 
 //this function will look for the user by its email in our user table
 //if target user exists,return the targetUser info; if not exists, the returned value should be undefined
-db.getUserByEmail = async function(email) {
-
+db.getUserByEmail = async function (email) {
   try {
     const query = `SELECT * FROM Users WHERE email=\'${email}\';`;
     const data = await pgQuery(query);
@@ -79,10 +76,10 @@ db.getUserByEmail = async function(email) {
     console.log('db.getUserByEmail ERROR', err);
     return undefined;
   }
-}
+};
 
 //this function will create a match for 2 users
-db.connectPartner = async function(currUserId, targetUserId) {
+db.connectPartner = async function (currUserId, targetUserId, partnerEmail) {
   const arr = [currUserId, targetUserId];
   // console.log('in connect partner!')
   try {
@@ -92,9 +89,11 @@ db.connectPartner = async function(currUserId, targetUserId) {
     // console.log('inside db.connectPartner', data.rows);
 
     //this query2 is going to update the hasPartner field in User table to true because both users now have partners
-    const query2 = `UPDATE Users SET has_partner = true WHERE id=$1 OR id=$2 RETURNING *;`
+    const query2 = `UPDATE Users SET has_partner = true WHERE id=$1 OR id=$2 RETURNING *;`;
     const data2 = await pgQuery(query2, arr);
     // console.log('did we update two connected users has_partner to true? ', data2.rows)
+    const query3 = `ALTER TABLE Users ADD partner_email VARCHAR(255) DEFAULT ${partnerEmail}`;
+    const data3 = await pgQuery(query3);
 
     if (data.rows.length === 0) {
       return null;
@@ -107,16 +106,12 @@ db.connectPartner = async function(currUserId, targetUserId) {
     console.log('db.connectPartner ERROR', err);
     return undefined;
   }
-}
+};
 
 db.createUser = async (args) => {
   // console.log(args);
   try {
-    const arr = [
-      args['sub'],
-      args['picture'],
-      args['email'],
-    ];
+    const arr = [args['sub'], args['picture'], args['email']];
     const sql = `INSERT INTO Users
       (sub, picture, email, page)
       VALUES ($1, $2, $3, 1)
@@ -148,7 +143,7 @@ db.getUser = async (sub) => {
   }
 };
 
-db.incrementPage = async function(page, id) {
+db.incrementPage = async function (page, id) {
   try {
     const sql = `UPDATE Users
       SET page=${page}
@@ -157,10 +152,9 @@ db.incrementPage = async function(page, id) {
     const pageNum = await pgQuery(sql);
     return pageNum.rows[0];
     // console.log('L158 pageNum:', pageNum.rows[0]);
-  } catch(err) {
+  } catch (err) {
     console.log('db.incrementPage:', err);
   }
 };
-
 
 module.exports = db;
