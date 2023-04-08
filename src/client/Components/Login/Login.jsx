@@ -1,5 +1,6 @@
 import './Login.css';
-import logo from '../../assets/amity logo - dark.png'
+// import logo from '../../assets/amity logo - dark.png';
+import logo from '../../../../public/logo.png';
 import React from 'react';
 
 const Login = () => {

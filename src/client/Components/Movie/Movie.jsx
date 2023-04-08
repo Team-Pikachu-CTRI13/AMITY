@@ -3,7 +3,8 @@ import axios from 'axios';
 import './Movie.css';
 import { BsHeartFill, BsXLg } from 'react-icons/bs';
 
-import logo from '../../assets/amity logo - dark.png';
+// import logo from '../../assets/amity logo - dark.png';
+import logo from '../../../../public/logo.png';
 import { useSelector, useDispatch } from 'react-redux';
 import { actionSetField } from '../../Redux/slices/userSlice';
 

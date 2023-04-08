@@ -7,7 +7,8 @@ import Movie from '../Movie/Movie.jsx';
 import Login from '../Login/Login.jsx';
 import Navbar from '../Navbar/Navbar';
 
-import logo from '../../assets/amity logo - dark.png';
+// import logo from '../../assets/amity logo - dark.png';
+// import logo from '../../../../public/logo.png';
 
 const Home = () => {
   const email = useSelector((state) => state.user.email);
