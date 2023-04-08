@@ -1,3 +1,5 @@
 node_modules
 secrets.js
 .env*.local
+.next
+package-lock.json
