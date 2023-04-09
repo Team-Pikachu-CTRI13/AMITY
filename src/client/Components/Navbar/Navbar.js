@@ -1,10 +1,12 @@
 import axios from 'axios';
+import { v4 as uuid } from 'uuid';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import styles from './navbar.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { actionSetField } from '../../Redux/slices/userSlice';
-import { v4 as uuid } from 'uuid';
+
+import styles from './navbar.module.css';
+import logo from '../../../../public/logo.png';
 
 const Navbar = ({ leftItems }) => {
   // This is how you interact with Redux store with hooks
@@ -37,15 +39,34 @@ const Navbar = ({ leftItems }) => {
       }
     });
   }, []);
+
+  // console.log(window.location.pathname);
+  // console.log(window.location.href);
+
   return (
     <div className={styles.navbar}>
       <div className={styles.row}>
-        <div className={styles.row}>
-          {/* {console.log('ITEMS: ', items)} */}
-          {
-            <a className={styles.homeBtn} href='/'>Home</a>
-          }
+
+        {/* instructions */}
+        {/* <div className={styles.logoSmall}><a href='/'>amity</a></div> */}
+
+
+
+        <div className={styles.logoSmall}>
+          {/* center this? */}
+
+          <a href={(window.location.pathname === '/') ? '/matches' : '/'}>
+            <img className={styles.iconSmall} src={logo} />
+          </a>
         </div>
+
+
+
+        {/* <div className={styles.row}>
+          {console.log('ITEMS: ', items)}
+          <a className={styles.homeBtn} href='/'>Home</a>
+          <a className={styles.homeBtn} href='/matches'>Home</a>
+        </div> */}
 
         <div className={styles.row}>
           <div className={styles.margin}>

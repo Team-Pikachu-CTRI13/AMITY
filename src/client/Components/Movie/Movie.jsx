@@ -26,6 +26,7 @@ const Movie = (props) => {
 
   //The code block below is getting access to the state about the loggedin user
   const currUser = useSelector((state) => state.user);
+  console.log('L29 of movie.jsx', currUser);
 
   //handleLike
   const handleLike = (e) => {
@@ -53,6 +54,7 @@ const Movie = (props) => {
   };
 
   const hasPartner = useSelector((state) => state.user.hasPartner);
+  console.log('L56 of movie.jsx', hasPartner);
 
   const useInput = (init) => {
     const [value, setValue] = useState(init);
@@ -92,10 +94,10 @@ const Movie = (props) => {
   return (
     <div className='movie'>
       {/* <h1>Your partner is: {JSON.stringify(hasPartner)}</h1> */}
-      <div className='logoSmall'>
+      {/* <div className='logoSmall'>
         amity
         <img className='iconSmall' src={logo} />
-      </div>
+      </div> */}
 
       {hasPartner || (<>PLEASE
         <form>
@@ -107,31 +109,36 @@ const Movie = (props) => {
       {movies.length > 0 && (
         <>
           <div className='wrapper'>
-            <div className='button-container'>
-              <button onClick={() => setModalOpen(!modalOpen)} className='info'>
-                i
-              </button>
-              {modalOpen && (
-                <div className='modal'>{movies[index].overview}</div>
-              )}
-              <button onClick={prevMovie} className='prev-slide'>
-                &#10094;
-              </button>
-              <button onClick={nextMovie} className='next-slide'>
-                &#10095;
-              </button>
+
+            {!modalOpen ?
+              <img
+                onClick={() => {
+                  console.log('img clicked!!');
+                  setModalOpen(!modalOpen);
+                }}
+                className='poster'
+                src={`https://image.tmdb.org/t/p/w1280/${movies[index].poster_path}`}
+              /> :
+              <div onClick={() => setModalOpen(!modalOpen)} className='button-container modal'>
+                {movies[index].overview}
+              </div>
+            }
+
+            {/* previous UI below */}
+            {/* <div className='button-container'>
+              <button onClick={() => setModalOpen(!modalOpen)} className='info'>i</button>
+              {modalOpen && <div className='modal'>{movies[index].overview}</div>}
+
+              <button onClick={prevMovie} className='prev-slide'>&#10094;</button>
+              <button onClick={nextMovie} className='next-slide'>&#10095;</button>
             </div>
-
-            {/* <button onClick={() => setModalOpen(!modalOpen)} className='info'>
-              <img className='poster' src={`https://image.tmdb.org/t/p/w1280/${movies[index].poster_path}`}/>
-            </button>
-            {modalOpen && <div className='modal'>{movies[index].overview}</div>} */}
-
             <img
               className='poster'
               src={`https://image.tmdb.org/t/p/w1280/${movies[index].poster_path}`}
-            />
+            /> */}
+
           </div>
+
           <div className='likeButtons'>
             <button className='like' onClick={handleLike}>
               <BsHeartFill className='testing' />

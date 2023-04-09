@@ -1,17 +1,14 @@
-//Create page for matched movies between partners
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { actionSetField } from '../../Redux/slices/userSlice';
+import { actionSetField } from '../src/client/Redux/slices/userSlice';
 
-import Navbar from '../Navbar/Navbar';
+import Navbar from '../src/client/Components/Navbar/Navbar';
 
 
 const Matches = (props) => {
-  const currUser = useSelector((state) => state.user);
-  console.log('L12 of MatchedMovies.jsx', currUser);
 
   const hasPartner = useSelector((state) => state.user.hasPartner);
-  console.log('L12 of MatchedMovies.jsx', hasPartner);
+  console.log('L11 of matches.js', hasPartner);
 
   const useInput = (init) => {
     const [value, setValue] = useState(init);

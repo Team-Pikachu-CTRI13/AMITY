@@ -1,5 +1,7 @@
 
-`npm run dev`
+`npm run all` or `npm run dev` for current state of migration to Next.js
+
+latest update: tap anywhere on poster to see description
 
 ### Next Steps:
 - [ ] Remove excessive files and code, transition to Next.js (then deploy on Vercel)
