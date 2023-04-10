@@ -113,7 +113,7 @@ const Movie = (props) => {
             {!modalOpen ?
               <img
                 onClick={() => {
-                  console.log('img clicked!!');
+                  // console.log('img clicked!!');
                   setModalOpen(!modalOpen);
                 }}
                 className='poster'

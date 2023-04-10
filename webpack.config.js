@@ -14,8 +14,15 @@ module.exports = {
         exclude: /(node_modules)/,
         use: ['style-loader', 'css-loader'],
       },
+      // {
+      //   test: /\.mjs$/,
+      //   include: /node_modules/,
+      //   type: "javascript/auto",
+      // },
       {
         test: /\.png|svg|jpg|gif$/,
+        // Add here the exclude attribute
+        exclude: [/^$/, /\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/],
         use: ['file-loader'],
       },
     ],
