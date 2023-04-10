@@ -8,7 +8,7 @@ export const authOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       profile(profile) {
-        console.log('L12 in nextauth', profile);
+        // console.log('L12 in nextauth', profile);
         return {
 
           // Return all the profile information you need.

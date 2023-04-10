@@ -8,10 +8,10 @@ import Navbar from '../Navbar/Navbar';
 
 const Matches = (props) => {
   const currUser = useSelector((state) => state.user);
-  console.log('L12 of MatchedMovies.jsx', currUser);
+  // console.log('L12 of MatchedMovies.jsx', currUser);
 
   const hasPartner = useSelector((state) => state.user.hasPartner);
-  console.log('L12 of MatchedMovies.jsx', hasPartner);
+  // console.log('L12 of MatchedMovies.jsx', hasPartner);
 
   const useInput = (init) => {
     const [value, setValue] = useState(init);

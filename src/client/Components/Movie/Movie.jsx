@@ -26,7 +26,7 @@ const Movie = (props) => {
 
   //The code block below is getting access to the state about the loggedin user
   const currUser = useSelector((state) => state.user);
-  console.log('L29 of movie.jsx', currUser);
+  // console.log('L29 of movie.jsx', currUser);
 
   //handleLike
   const handleLike = (e) => {
@@ -54,7 +54,7 @@ const Movie = (props) => {
   };
 
   const hasPartner = useSelector((state) => state.user.hasPartner);
-  console.log('L56 of movie.jsx', hasPartner);
+  // console.log('L56 of movie.jsx', hasPartner);
 
   const useInput = (init) => {
     const [value, setValue] = useState(init);

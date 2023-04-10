@@ -17,6 +17,7 @@ const Login = () => {
           src={heartLogo}
           alt="Amity logo"
           height={16}
+          alt='amity logo icon'
         />
       </div>
 

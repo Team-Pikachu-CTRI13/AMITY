@@ -8,7 +8,7 @@ import Navbar from '../src/client/Components/Navbar/Navbar';
 const Matches = (props) => {
 
   const hasPartner = useSelector((state) => state.user.hasPartner);
-  console.log('L11 of matches.js', hasPartner);
+  // console.log('L11 of matches.js', hasPartner);
 
   const useInput = (init) => {
     const [value, setValue] = useState(init);
