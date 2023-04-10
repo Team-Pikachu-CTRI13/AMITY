@@ -1,23 +1,17 @@
 import './Login.css';
-// import '../../../../components/login.module.css';
-import logo from '../../../../public/logo.png';
+// import styles from '../../../../components/login.module.css';
+// const { login, logo, icon, loginBtn } = styles;
+import logoPic from '../../../../public/logo.png';
 import React from 'react';
 
 const Login = () => {
   return (
     <div className='login'>
-
-
-      <ul>
-        <p>*this app allows the user to swipe on their film preferences and connect with friends
-        </p>
-        {/* <p>current features:</p> */}
-        {/* <li></li> */}
-      </ul>
+      {/* *this app allows the user to swipe on their film preferences and connect with friends */}
 
       <div className='logo'>
         amity
-        <img className='icon' src={logo} />
+        <img className='icon' src={logoPic} />
       </div>
 
       <button className='loginBtn' onClick={() => window.location.href = 'http://localhost:8080/auth/google'}>

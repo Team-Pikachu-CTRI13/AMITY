@@ -26,6 +26,7 @@
 }
 
 .logoutBtn {
+  font-size: 1.4em;
   margin-right: 0.3em;
 }
 
@@ -42,6 +43,8 @@
 }
 
 .logoSmall {
+  font-family: 'Fredoka';
+  color: var(--burgundy);
   font-size: 2.5em;
   font-weight: 500;
   display: flex;
@@ -53,4 +56,8 @@
 
 .iconSmall {
   height: 0.75em;
+}
+
+.menu {
+  border: none;
 }

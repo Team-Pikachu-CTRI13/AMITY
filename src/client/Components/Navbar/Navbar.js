@@ -8,6 +8,17 @@ import { actionSetField } from '../../Redux/slices/userSlice';
 import styles from './navbar.module.css';
 import logo from '../../../../public/logo.png';
 
+// import {
+//   Menu,
+//   MenuButton,
+//   MenuList,
+//   MenuItem,
+//   MenuItemOption,
+//   MenuGroup,
+//   MenuOptionGroup,
+//   MenuDivider,
+// } from '@chakra-ui/react';
+
 const Navbar = ({ leftItems }) => {
   // This is how you interact with Redux store with hooks
   // syntax:
@@ -44,48 +55,38 @@ const Navbar = ({ leftItems }) => {
   // console.log(window.location.href);
 
   return (
-    <div className={styles.navbar}>
-      <div className={styles.row}>
+    <div className={styles.row}>
+      {/* <Menu>
+        <MenuButton className={styles.logoSmall}>
+          amity
+          <img className={styles.iconSmall} src={logo} />
+        </MenuButton>
+        <MenuList>
+          <MenuItem className={styles.margin}>
+            <a
+              className={styles.logoutBtn}
+              href='http://localhost:8080/auth/logout'
+            >Logout</a>
+            <img className={styles.profileImg} src={items.picture} />
+          </MenuItem>
+        </MenuList>
+      </Menu> */}
 
-        {/* instructions */}
-        {/* <div className={styles.logoSmall}><a href='/'>amity</a></div> */}
 
-
-
-        <div className={styles.logoSmall}>
-          {/* center this? */}
-
-          <a href={(window.location.pathname === '/') ? '/matches' : '/'}>
-            <img className={styles.iconSmall} src={logo} />
-          </a>
-        </div>
-
-
-
-        {/* <div className={styles.row}>
-          {console.log('ITEMS: ', items)}
-          <a className={styles.homeBtn} href='/'>Home</a>
-          <a className={styles.homeBtn} href='/matches'>Home</a>
-        </div> */}
-
-        <div className={styles.row}>
-          <div className={styles.margin}>
-            {email ? (
-              <>
-                <a
-                  className={styles.logoutBtn}
-                  href='http://localhost:8080/auth/logout'
-                >
-                  Logout
-                </a>
-                <img className={styles.profileImg} src={items.picture} />
-              </>
-            ) : (
-              <a href={`http://localhost:8080/auth/google`}>log in</a>
-            )}
-          </div>
-        </div>
+      {/* center this? */}
+      <div className={styles.logoSmall}>
+        <a href={(window.location.pathname === '/') ? '/matches' : '/'}>amity
+          <img className={styles.iconSmall} src={logo} />
+        </a>
       </div>
+      <div className={styles.margin}>
+        <a
+          className={styles.logoutBtn}
+          href='http://localhost:8080/auth/logout'
+        >Logout</a>
+        <img className={styles.profileImg} src={items.picture} />
+      </div>
+
     </div>
   );
 };
