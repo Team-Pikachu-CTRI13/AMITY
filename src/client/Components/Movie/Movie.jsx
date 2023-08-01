@@ -106,6 +106,7 @@ const Movie = (props) => {
       <div className='logoSmall'>
         amity
         <img className='iconSmall' src={logo} />
+        <button>Logout</button>
       </div>
 
       {hasPartner || (<>PLEASE

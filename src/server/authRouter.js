@@ -15,7 +15,7 @@ router.get('/user', (req, res) => {
       _id: 4,
       sub: '114622580175644930120',
       picture: 'https://lh3.googleusercontent.com/a/default-user=s96-c',
-      email: 'michael.chiang.dev5@gmail.com',
+      email: 'rachel.he309@gmail.com',
       email_verified: true,
     };
   }
